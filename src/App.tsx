@@ -11,6 +11,7 @@ import RakhiHome from "./pages/rakhi/Home";
 import RakhiLetter from "./pages/rakhi/Letter";
 import RakhiSendMessage from "./pages/rakhi/SendMessage";
 import RakhiMessages from "./pages/rakhi/Messages";
+import RakhiMyMessages from "./pages/rakhi/MyMessages";
 
 const queryClient = new QueryClient();
 

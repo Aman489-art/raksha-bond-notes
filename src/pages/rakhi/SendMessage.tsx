@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { addMessage } from "@/features/rakhi/messageStore";
+import { setSessionUsername } from "@/features/rakhi/userStore";
 
 const RakhiSendMessage = () => {
   const { username } = useParams();
@@ -14,6 +15,7 @@ const RakhiSendMessage = () => {
   const handleSend = () => {
     const body = message.trim();
     if (!safeName || !body) return;
+    setSessionUsername(safeName);
     addMessage({ username: safeName, body });
     setMessage("");
     navigate("/rakshabandhan_gift/messages");

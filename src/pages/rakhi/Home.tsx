@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { setSessionUsername } from "@/features/rakhi/userStore";
 
 const RakhiHome = () => {
   const [username, setUsername] = useState("");
@@ -11,6 +12,7 @@ const RakhiHome = () => {
   const handleEnter = () => {
     const trimmed = username.trim();
     if (!trimmed) return;
+    setSessionUsername(trimmed);
     navigate(`/rakshabandhan_gift/letter/${encodeURIComponent(trimmed)}`);
   };
 
