@@ -3,24 +3,34 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { addMessage } from "@/features/rakhi/messageStore";
+import { createMessage } from "@/features/rakhi/messageApi";
 import { setSessionUsername } from "@/features/rakhi/userStore";
+import { toast } from "@/components/ui/use-toast";
 
 const RakhiSendMessage = () => {
   const { username } = useParams();
   const [message, setMessage] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
   const safeName = (username ?? "").trim();
 
-  const handleSend = () => {
+  const handleSend = async () => {
     const body = message.trim();
-    if (!safeName || !body) return;
-    setSessionUsername(safeName);
-    addMessage({ username: safeName, body });
-    setMessage("");
+    if (!safeName || !body || submitting) return;
+    try {
+      setSubmitting(true);
+      setSessionUsername(safeName);
+      await createMessage({ username: safeName, body });
+      setMessage("");
+      toast({ title: "Message sent", description: "Your message is now visible to everyone." });
+    } catch (e) {
+      console.error(e);
+      toast({ title: "Something went wrong", description: "Please try again.", variant: "destructive" });
+    } finally {
+      setSubmitting(false);
+    }
     navigate(`/rakshabandhan_gift/send/${encodeURIComponent(safeName)}`);
   };
-
   return (
     <section className="min-h-[70vh] flex items-center justify-center">
       <Helmet>
@@ -38,8 +48,9 @@ const RakhiSendMessage = () => {
           className="w-full"
           aria-label="Write your message"
         />
-        <Button variant="peach" onClick={handleSend} className="w-full font-comic text-base">
-          Send Message
+        <p className="text-sm text-muted-foreground">Your message will be visible to everyone.</p>
+        <Button variant="peach" onClick={handleSend} disabled={!message.trim() || !safeName || submitting} className="w-full font-comic text-base">
+          {submitting ? "Sending..." : "Send Message"}
         </Button>
       </div>
     </section>
