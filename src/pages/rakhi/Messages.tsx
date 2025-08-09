@@ -1,9 +1,17 @@
 import { Helmet } from "react-helmet-async";
 import { getMessages } from "@/features/rakhi/messageStore";
 import { Card, CardContent } from "@/components/ui/card";
+import { getClientId } from "@/features/rakhi/userStore";
 
 const RakhiMessages = () => {
-  const messages = getMessages();
+  const all = getMessages();
+  const me = getClientId();
+  const messages = [...all].sort((a, b) => {
+    const aMine = a.authorId === me ? 0 : 1;
+    const bMine = b.authorId === me ? 0 : 1;
+    if (aMine !== bMine) return aMine - bMine;
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  });
 
   return (
     <section className="py-6">

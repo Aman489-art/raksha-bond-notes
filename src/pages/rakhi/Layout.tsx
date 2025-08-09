@@ -1,5 +1,5 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { MessageSquare, Pencil } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Helmet } from "react-helmet-async";
 
@@ -15,13 +15,6 @@ const RakhiLayout = () => {
     }
   };
 
-  const handleToggleMyMessages = () => {
-    if (location.pathname.endsWith("/my-messages")) {
-      navigate(-1);
-    } else {
-      navigate("/rakshabandhan_gift/my-messages");
-    }
-  };
 
   return (
     <div className="min-h-screen bg-peach">
@@ -41,15 +34,6 @@ const RakhiLayout = () => {
             onClick={handleToggleMessages}
           >
             <MessageSquare className="h-5 w-5" />
-          </Button>
-          <Button
-            variant="secondary"
-            size="icon"
-            className="rounded-full shadow-md hover:shadow-lg transition-shadow"
-            aria-label={location.pathname.endsWith("/my-messages") ? "Close my messages" : "Manage my messages"}
-            onClick={handleToggleMyMessages}
-          >
-            <Pencil className="h-5 w-5" />
           </Button>
         </div>
       </header>

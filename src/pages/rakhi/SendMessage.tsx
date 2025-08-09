@@ -18,7 +18,7 @@ const RakhiSendMessage = () => {
     setSessionUsername(safeName);
     addMessage({ username: safeName, body });
     setMessage("");
-    navigate("/rakshabandhan_gift/messages");
+    navigate(`/rakshabandhan_gift/send/${encodeURIComponent(safeName)}`);
   };
 
   return (

@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { setSessionUsername } from "@/features/rakhi/userStore";
+import { setSessionUsername, getSessionUsername } from "@/features/rakhi/userStore";
 
 const RakhiHome = () => {
   const [username, setUsername] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const name = getSessionUsername().trim();
+    if (name) {
+      navigate(`/rakshabandhan_gift/send/${encodeURIComponent(name)}`, { replace: true });
+    }
+  }, [navigate]);
 
   const handleEnter = () => {
     const trimmed = username.trim();
