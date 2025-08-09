@@ -26,12 +26,12 @@ const RakhiHome = () => {
   return (
     <section className="min-h-[70vh] flex items-center justify-center">
       <Helmet>
-        <title>Raksha Bandhan Gift - Home | amanmishra.com</title>
+        <title>Rakshabandhan Wishes | amanmishra.com</title>
         <meta name="description" content="Enter your name to receive a heartfelt Raksha Bandhan letter." />
         <link rel="canonical" href="https://amanmishra.com/rakshabandhan_gift" />
       </Helmet>
       <div className="w-full max-w-md space-y-4">
-        <h1 className="text-center text-3xl font-semibold text-foreground">Raksha Bandhan Gift</h1>
+        <h1 className="text-center text-3xl font-semibold text-foreground">Rakshabandhan Wishes</h1>
         <div className="space-y-3">
           <Input
             value={username}
